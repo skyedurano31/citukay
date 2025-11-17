@@ -1,5 +1,6 @@
 package com.citukay.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class Payment {
     private String paymentMethod; // CREDIT_CARD, PAYPAL, etc.
     private String transactionId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
