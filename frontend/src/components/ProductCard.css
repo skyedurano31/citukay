@@ -56,7 +56,7 @@
 .product-price {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #667eea;
+  color:#dc3545;
   margin-bottom: 10px;
 }
 
@@ -66,13 +66,13 @@
 }
 
 .product-stock:not(:empty) {
-  color: #28a745;
+  color: #333;
 }
 
 .add-to-cart-btn {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
