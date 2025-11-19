@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (userData) => {
+  const register = async (userData) => {
     try {
       const response = await fetch('http://localhost:8080/api/users', {
         method: 'POST',
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     user,
     isAuthenticated,
     login,
-    signup,
+    register,
     logout,
     loading
   };
