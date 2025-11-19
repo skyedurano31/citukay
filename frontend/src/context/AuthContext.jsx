@@ -1,82 +1,105 @@
+// context/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if user is logged in on app start
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    
-    if (token && user) {
-      setCurrentUser(JSON.parse(user));
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+      setIsAuthenticated(true);
     }
     setLoading(false);
   }, []);
 
   const login = async (email, password) => {
     try {
-      const response = await authAPI.login(email, password);
+      // Get all users from your Spring Boot API
+      const response = await fetch('http://localhost:8080/api/users');
+      if (!response.ok) throw new Error('Failed to fetch users');
       
-      if (response.data.user) {
-        const user = response.data.user;
-        setCurrentUser(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', 'dummy-token'); // In real app, use JWT token
-        return { success: true, user };
+      const users = await response.json();
+
+      // Find user with matching email and password
+      const foundUser = users.find(u => 
+        u.email === email && u.password === password
+      );
+
+      if (foundUser) {
+        // Remove password from user object before storing (for security)
+        const { password, ...userWithoutPassword } = foundUser;
+        setUser(userWithoutPassword);
+        setIsAuthenticated(true);
+        localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+        return { success: true, user: userWithoutPassword };
+      } else {
+        return { success: false, error: 'Invalid email or password' };
       }
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data || 'Login failed' 
-      };
+      console.error('Login error:', error);
+      return { success: false, error: 'Login failed. Please try again.' };
     }
   };
 
-  const register = async (userData) => {
+  const signup = async (userData) => {
     try {
-      const response = await authAPI.register(userData);
+      const response = await fetch('http://localhost:8080/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) throw new Error('Failed to create user');
+
+      const newUser = await response.json();
       
-      if (response.data.user) {
-        const user = response.data.user;
-        setCurrentUser(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', 'dummy-token');
-        return { success: true, user };
-      }
+      // Remove password from user object before storing
+      const { password, ...userWithoutPassword } = newUser;
+      setUser(userWithoutPassword);
+      setIsAuthenticated(true);
+      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+      
+      return { success: true, user: userWithoutPassword };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data || 'Registration failed' 
-      };
+      console.error('Signup error:', error);
+      return { success: false, error: 'Signup failed. Please try again.' };
     }
   };
 
   const logout = () => {
-    setCurrentUser(null);
+    setUser(null);
+    setIsAuthenticated(false);
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
   };
 
   const value = {
-    currentUser,
+    user,
+    isAuthenticated,
     login,
-    register,
+    signup,
     logout,
-    isAuthenticated: !!currentUser
+    loading
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

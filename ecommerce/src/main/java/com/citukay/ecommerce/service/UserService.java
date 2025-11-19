@@ -48,4 +48,14 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public boolean checkLogin(String email, String password) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        // NOTE: store hashed passwords in production
+        return user.getPassword().equals(password);
+    }
+
 }

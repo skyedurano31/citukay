@@ -29,7 +29,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
 
-    // constructors
     public User() {}
 
     public User(String email, String password, String firstName, String lastName) {

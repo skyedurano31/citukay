@@ -1,3 +1,4 @@
+// components/Login.js
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,12 +20,13 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
+    setError('');
 
     const result = await login(formData.email, formData.password);
     
@@ -39,13 +41,11 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
+      <div className="auth-form">
         <h2>Login to Your Account</h2>
-        {error && <div className="error-message">{error}</div>}
-        
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
@@ -56,9 +56,8 @@ const Login = () => {
               placeholder="Enter your email"
             />
           </div>
-
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
@@ -69,26 +68,14 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={loading}
-          >
+          {error && <div className="error-message">{error}</div>}
+          <button type="submit" disabled={loading} className="auth-button">
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-
-        <div className="auth-footer">
-          <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
-        </div>
-
-        {/* Demo credentials */}
-        <div className="demo-credentials">
-          <h4>Demo Credentials:</h4>
-          <p>Email: john.doe@example.com</p>
-          <p>Password: password123</p>
-        </div>
+        <p className="auth-link">
+          Don't have an account? <Link to="/signup">Sign up here</Link>
+        </p>
       </div>
     </div>
   );
