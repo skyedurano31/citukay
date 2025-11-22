@@ -76,7 +76,11 @@ const Login = () => {
         <p className="auth-link">
           Don't have an account? <Link to="/signup">Sign up here</Link>
         </p>
-      </div>
+        </div>
+
+        <div className="auth-image">
+          <img src="/images/citlogo.png" alt="Login Visual" />
+        </div>
     </div>
   );
 };

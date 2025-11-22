@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ProductList from './components/ProductList';
+import Cart from './components/Cart';
 import './CituukayApp.css';
 
 // Protected Route Component
@@ -42,6 +43,10 @@ function AppContent() {
                 <Signup />
               </PublicRoute>
             } 
+          />
+
+          <Route
+           path="/cart" element={<Cart />} 
           />
           
           {/* Protected routes */}

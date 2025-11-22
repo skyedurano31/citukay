@@ -10,8 +10,36 @@ const ProductCard = ({ product }) => {
       alert('Please login to add items to cart');
       return;
     }
-    // Add to cart logic here
-    alert(`Added ${product.name} to cart`);
+
+    if (product.stockQuantity === 0) {
+      alert('This product is out of stock');
+      return;
+    }
+
+    // Add to cart logic
+    const existingCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    
+    const existingItem = existingCart.find(item => item.id === product.id);
+    
+    if (existingItem) {
+      // Check if we're exceeding available stock
+      if (existingItem.quantity >= product.stockQuantity) {
+        alert(`Cannot add more. Only ${product.stockQuantity} items available in stock.`);
+        return;
+      }
+      existingItem.quantity += 1;
+    } else {
+      existingCart.push({
+        ...product,
+        quantity: 1
+      });
+    }
+    
+    localStorage.setItem('cartItems', JSON.stringify(existingCart));
+    alert(`${product.name} added to cart!`);
+    
+    // Dispatch event to update navbar cart count
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   return (
@@ -20,7 +48,7 @@ const ProductCard = ({ product }) => {
         {product.imageUrl ? (
           <img src={product.imageUrl} alt={product.name} />
         ) : (
-          <div className="no-image">No Image</div>
+          <div className="no-image">sample image</div>
         )}
       </div>
       
@@ -35,7 +63,7 @@ const ProductCard = ({ product }) => {
         </p>
         
         <button 
-          className="add-to-cart-btn"
+          className={`add-to-cart-btn ${product.stockQuantity === 0 ? 'disabled' : ''}`}
           onClick={handleAddToCart}
           disabled={product.stockQuantity === 0}
         >

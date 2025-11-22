@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in on app start
+    
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
@@ -28,19 +28,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // Get all users from your Spring Boot API
       const response = await fetch('http://localhost:8080/api/users');
       if (!response.ok) throw new Error('Failed to fetch users');
       
       const users = await response.json();
 
-      // Find user with matching email and password
       const foundUser = users.find(u => 
         u.email === email && u.password === password
       );
 
       if (foundUser) {
-        // Remove password from user object before storing (for security)
         const { password, ...userWithoutPassword } = foundUser;
         setUser(userWithoutPassword);
         setIsAuthenticated(true);
@@ -69,7 +66,6 @@ export const AuthProvider = ({ children }) => {
 
       const newUser = await response.json();
       
-      // Remove password from user object before storing
       const { password, ...userWithoutPassword } = newUser;
       setUser(userWithoutPassword);
       setIsAuthenticated(true);
