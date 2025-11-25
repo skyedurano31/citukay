@@ -27,8 +27,8 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<Payment> payments = new ArrayList<>();
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order() {}
 
@@ -60,6 +60,6 @@ public class Order {
     public List<OrderItem> getOrderItems() { return orderItems; }
     public void setOrderItems(List<OrderItem> orderItems) { this.orderItems = orderItems; }
 
-    public List<Payment> getPayments() { return payments; }
-    public void setPayments(List<Payment> payments) { this.payments = payments; }
+    public Payment getPayments() { return payment; }
+    public void setPayments(Payment payments) { this.payment = payments; }
 }
