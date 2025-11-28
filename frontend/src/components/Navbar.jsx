@@ -8,13 +8,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  // Function to get cart item count
+  
   const getCartItemCount = () => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // Update cart count on component mount and when cart updates
   useEffect(() => {
     setCartItemsCount(getCartItemCount());
 
@@ -22,10 +21,8 @@ const Navbar = () => {
       setCartItemsCount(getCartItemCount());
     };
 
-    // Listen for cart update events
     window.addEventListener('cartUpdated', handleCartUpdate);
     
-    // Cleanup
     return () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
     };
@@ -56,7 +53,6 @@ const Navbar = () => {
           {/* My Cart Button - Always visible */}
           <Link to="/cart" className="nav-link cart-link">
             <span className="cart-icon">🛒</span>
-            My Cart
             {cartItemsCount > 0 && (
               <span className="cart-badge">{cartItemsCount}</span>
             )}

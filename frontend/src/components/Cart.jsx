@@ -7,7 +7,6 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Load cart items from localStorage on component mount
   useEffect(() => {
     console.log('Cart component mounted - loading from localStorage');
     const savedCart = localStorage.getItem('cartItems');
@@ -28,18 +27,14 @@ const Cart = () => {
     setLoading(false);
   }, []);
 
-  // Debug: Log when cartItems change
   useEffect(() => {
     console.log('Cart items updated:', cartItems);
   }, [cartItems]);
 
-  // Rest of your component remains the same...
-  // Calculate total price
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
-  // Update quantity of an item
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
     
@@ -50,17 +45,14 @@ const Cart = () => {
     );
   };
 
-  // Remove item from cart
   const removeFromCart = (productId) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
-  // Clear entire cart
   const clearCart = () => {
     setCartItems([]);
   };
 
-  // Proceed to checkout
   const handleCheckout = () => {
     if (cartItems.length === 0) {
       alert('Your cart is empty!');
@@ -69,7 +61,6 @@ const Cart = () => {
     alert('Proceeding to checkout!');
   };
 
-  // Continue shopping
   const continueShopping = () => {
     navigate('/products');
   };

@@ -8,13 +8,12 @@ import ProductList from './components/ProductList';
 import Cart from './components/Cart';
 import './CituukayApp.css';
 
-// Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
-// Public Route Component (redirect to products if already authenticated)
+
 const PublicRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return !isAuthenticated ? children : <Navigate to="/products" />;
@@ -45,9 +44,7 @@ function AppContent() {
             } 
           />
 
-          <Route
-           path="/cart" element={<Cart />} 
-          />
+          
           
           {/* Protected routes */}
           <Route 
@@ -66,6 +63,10 @@ function AppContent() {
                 </div>
               </ProtectedRoute>
             } 
+          />
+
+          <Route
+           path="/cart" element={<Cart />} 
           />
           <Route 
             path="/profile" 
