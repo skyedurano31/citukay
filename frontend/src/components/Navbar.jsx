@@ -50,7 +50,7 @@ const Navbar = () => {
 
         <div className="nav-menu">
           <Link to="/products" className="nav-link">
-            Products
+            UkayUkay
           </Link>
           
           {/* My Cart Button - Always visible */}
