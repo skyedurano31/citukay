@@ -159,6 +159,9 @@ const Signup = () => {
           <p>Already have an account? <Link to="/login">Login here</Link></p>
         </div>
       </div>
+      <div className="auth-image">
+          <img src="/images/citlogo.png" alt="Login Visual" />
+        </div>
     </div>
   );
 };

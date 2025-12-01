@@ -12,72 +12,6 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar Styles */
-.navbar {
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #007bff;
-  text-decoration: none;
-}
-
-.logo span {
-  color: #333;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #495057;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
-  color: #007bff;
-}
-
-.user-actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.login-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.login-btn:hover {
-  background-color: #0056b3;
-}
-
 /* Main Container */
 .container {
   max-width: 1200px;
@@ -121,14 +55,14 @@ body {
 }
 
 .category-btn:hover {
-  border-color: #007bff;
-  color: #007bff;
+  border-color: #dc3545;
+  color: #dc3545;
   transform: translateY(-1px);
 }
 
 .category-btn.active {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #dc3545;
+  border-color: #dc3545;
   color: white;
   box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
 }
@@ -183,7 +117,7 @@ body {
 .product-price {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #007bff;
+  color: #dc3545;
   margin-bottom: 1rem;
 }
 
