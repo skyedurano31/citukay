@@ -4,21 +4,42 @@ import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { currentUser, logout, isAuthenticated } = useAuth();
+  const { currentUser, logout, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  
-  const getCartItemCount = () => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  const fetchCartCount = async () => {
+    if (!isAuthenticated || !user) {
+      setCartItemsCount(0);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const userId = user.id || 1;
+      const response = await fetch(`http://localhost:8080/api/cart/${userId}`);
+      
+      if (response.ok) {
+        const cart = await response.json();
+        const count = cart.cartItems?.reduce((total, item) => total + item.quantity, 0) || 0;
+        setCartItemsCount(count);
+      } else {
+        setCartItemsCount(0);
+      }
+    } catch (error) {
+      console.error('Error fetching cart count:', error);
+      setCartItemsCount(0);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    setCartItemsCount(getCartItemCount());
+    fetchCartCount();
 
     const handleCartUpdate = () => {
-      setCartItemsCount(getCartItemCount());
+      fetchCartCount();
     };
 
     window.addEventListener('cartUpdated', handleCartUpdate);
@@ -26,10 +47,16 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
     };
-  }, []);
+  }, [isAuthenticated, user]); // Re-fetch when auth state changes
+
+  // Also fetch cart count when component mounts and when user changes
+  useEffect(() => {
+    fetchCartCount();
+  }, [user, isAuthenticated]);
 
   const handleLogout = () => {
     logout();
+    setCartItemsCount(0); // Reset cart count on logout
     navigate('/login');
   };
 
@@ -53,8 +80,11 @@ const Navbar = () => {
           {/* My Cart Button - Always visible */}
           <Link to="/cart" className="nav-link cart-link">
             <span className="cart-icon">🛒</span>
-            {cartItemsCount > 0 && (
+            {!loading && cartItemsCount > 0 && (
               <span className="cart-badge">{cartItemsCount}</span>
+            )}
+            {loading && (
+              <span className="cart-loading">...</span>
             )}
           </Link>
           

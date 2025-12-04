@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const [addingToCart, setAddingToCart] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!isAuthenticated) {
       alert('Please login to add items to cart');
       return;
@@ -16,30 +17,39 @@ const ProductCard = ({ product }) => {
       return;
     }
 
-    // Add to cart logic
-    const existingCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
-    
-    const existingItem = existingCart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-      // Check if we're exceeding available stock
-      if (existingItem.quantity >= product.stockQuantity) {
-        alert(`Cannot add more. Only ${product.stockQuantity} items available in stock.`);
-        return;
+    try {
+      setAddingToCart(true);
+      
+      // Use user ID from auth context, fallback to 1 for testing
+      const userId = user?.id || 1;
+      
+      const response = await fetch(
+        `http://localhost:8080/api/cart/${userId}/add/${product.id}?quantity=1`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
       }
-      existingItem.quantity += 1;
-    } else {
-      existingCart.push({
-        ...product,
-        quantity: 1
-      });
+
+      const updatedCart = await response.json();
+      
+      alert(`${product.name} added to cart!`);
+      
+      // Dispatch event to update navbar cart count
+      window.dispatchEvent(new Event('cartUpdated'));
+      
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Failed to add item to cart. Please try again.');
+    } finally {
+      setAddingToCart(false);
     }
-    
-    localStorage.setItem('cartItems', JSON.stringify(existingCart));
-    alert(`${product.name} added to cart!`);
-    
-    // Dispatch event to update navbar cart count
-    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   return (
@@ -65,9 +75,10 @@ const ProductCard = ({ product }) => {
         <button 
           className={`add-to-cart-btn ${product.stockQuantity === 0 ? 'disabled' : ''}`}
           onClick={handleAddToCart}
-          disabled={product.stockQuantity === 0}
+          disabled={product.stockQuantity === 0 || addingToCart}
         >
-          {product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
+          {addingToCart ? 'Adding...' : 
+           product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
         </button>
       </div>
     </div>

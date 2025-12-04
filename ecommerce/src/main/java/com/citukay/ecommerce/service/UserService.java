@@ -27,6 +27,12 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElse(null); // Return null if not found
+    }
+
+
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("Email already exists");

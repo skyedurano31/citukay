@@ -3,22 +3,28 @@ package com.citukay.ecommerce.service;
 import com.citukay.ecommerce.entity.Cart;
 import com.citukay.ecommerce.entity.CartItem;
 import com.citukay.ecommerce.entity.Product;
+import com.citukay.ecommerce.entity.User;
 import com.citukay.ecommerce.repository.CartItemRepository;
 import com.citukay.ecommerce.repository.CartRepository;
 import com.citukay.ecommerce.repository.ProductRepository;
+import com.citukay.ecommerce.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Service
 public class CartService {
-    private CartRepository cartRepository;
-    private CartItemRepository cartItemRepository;
-    private ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository,ProductRepository productRepository) {
+    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository,ProductRepository productRepository,UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     public Cart getCartByUserId(Long userId) {
@@ -26,8 +32,12 @@ public class CartService {
         if (cart.isPresent()) {
             return cart.get();
         } else {
-            Cart newCart = new Cart();
-            // Note: You'll need to set user here if needed
+            // Find the user first
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+            // Create new cart WITH the user
+            Cart newCart = new Cart(user); // This will set the user
             return cartRepository.save(newCart);
         }
     }
