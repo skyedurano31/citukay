@@ -15,8 +15,8 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ProductDetail from './components/ProductDetail';
 import ImageDebugPage from './pages/ImageDebugPage';  
-// import './App.css';
-import './sample.css';
+import './App.css';
+// import './sample.css';
 
 const PrivateRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem('user'));
