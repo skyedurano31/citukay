@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import OrderDetail from './OrderDetail';
+import './OrderHistory.css'  
 
 const OrderHistory = () => {
   const { user } = useAuth();

@@ -1,0 +1,475 @@
+/* Order Detail - Maroon Theme */
+.order-detail {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 80px);
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #8B0000;
+  border: 1px solid #8B0000;
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #8B0000;
+  color: white;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+
+/* Loading & Error States */
+.loading {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #8B0000;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.loading::after {
+  content: '...';
+  animation: dots 1.5s infinite;
+}
+
+.error {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: #ffeaea;
+  border: 1px solid #ffd0d0;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.error p {
+  color: #c62828;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.error button {
+  background: #8B0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Order Header */
+.order-header-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(139, 0, 0, 0.1);
+}
+
+.order-header-detail h2 {
+  color: #8B0000;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.order-date {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.order-status-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Colors (same as OrderHistory) */
+.status-pending {
+  background: #fff3e0;
+  color: #f57c00;
+  border: 2px solid #ffe0b2;
+}
+
+.status-processing {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 2px solid #bbdefb;
+}
+
+.status-shipped {
+  background: #e8f5e8;
+  color: #388e3c;
+  border: 2px solid #c8e6c9;
+}
+
+.status-delivered {
+  background: #f1f8e9;
+  color: #689f38;
+  border: 2px solid #dcedc8;
+}
+
+.status-cancelled {
+  background: #ffebee;
+  color: #d32f2f;
+  border: 2px solid #ffcdd2;
+}
+
+.status-default {
+  background: #f5f5f5;
+  color: #757575;
+  border: 2px solid #e0e0e0;
+}
+
+/* Order Content Layout */
+.order-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.5rem;
+}
+
+/* Order Items Table */
+.order-items-detail h3 {
+  color: #8B0000;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f0e6e6;
+}
+
+.order-items-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border: 1px solid #e8d4d4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.05);
+}
+
+.order-items-table thead {
+  background: #8B0000;
+}
+
+.order-items-table th {
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid #700018;
+}
+
+.order-items-table tbody tr {
+  border-bottom: 1px solid #f0e6e6;
+  transition: background 0.3s ease;
+}
+
+.order-items-table tbody tr:hover {
+  background: #fffafa;
+}
+
+.order-items-table td {
+  padding: 1.25rem;
+  vertical-align: top;
+}
+
+/* Item Info */
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  background: #f8f4f4;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e8d4d4;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder-small {
+  font-size: 1.5rem;
+  color: #d0b0b0;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.item-sku {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.order-items-table td:not(:first-child) {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Order Summary Sidebar */
+.order-summary-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.summary-section {
+  background: white;
+  border: 1px solid #e8d4d4;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.05);
+}
+
+.summary-section h3 {
+  color: #8B0000;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f0e6e6;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.summary-row.total {
+  color: #8B0000;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #f0e6e6;
+}
+
+/* Address & Payment Info */
+.address-info,
+.payment-info {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.address-info p,
+.payment-info p {
+  margin-bottom: 0.5rem;
+}
+
+.address-info strong,
+.payment-info strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Order Actions */
+.order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-track,
+.btn-return,
+.btn-cancel {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-track {
+  background: linear-gradient(135deg, #8B0000 0%, #800020 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.2);
+}
+
+.btn-track:hover {
+  background: linear-gradient(135deg, #800020 0%, #700018 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+}
+
+.btn-return {
+  background: white;
+  color: #0277bd;
+  border: 1px solid #b3e0f0;
+}
+
+.btn-return:hover {
+  background: #e8f4f8;
+  border-color: #90c8e0;
+}
+
+.btn-cancel {
+  background: white;
+  color: #c62828;
+  border: 1px solid #ffd0d0;
+}
+
+.btn-cancel:hover {
+  background: #ffeaea;
+  border-color: #ffb0b0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .order-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .order-summary-detail {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-detail {
+    padding: 1.5rem 1rem;
+  }
+  
+  .order-header-detail {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .order-status-badge {
+    align-self: flex-start;
+  }
+  
+  .order-items-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .order-items-table th,
+  .order-items-table td {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-header-detail h2 {
+    font-size: 1.5rem;
+  }
+  
+  .item-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .order-actions {
+    gap: 0.5rem;
+  }
+  
+  .btn-track,
+  .btn-return,
+  .btn-cancel {
+    padding: 0.625rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .back-btn,
+  .order-actions {
+    display: none;
+  }
+  
+  .order-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .order-items-table,
+  .summary-section {
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+}
+
+/* Status badge icons */
+.status-pending::before {
+  content: '⏳ ';
+}
+
+.status-processing::before {
+  content: '🔄 ';
+}
+
+.status-shipped::before {
+  content: '🚚 ';
+}
+
+.status-confirm::before {
+  content: '✅ ';
+}
+
+.status-cancelled::before {
+  content: '❌ ';
+}
+
+/* Animation for loading data */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order-detail > * {
+  animation: fadeIn 0.5s ease;
+}
