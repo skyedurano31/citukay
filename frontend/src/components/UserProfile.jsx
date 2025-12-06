@@ -1,6 +1,7 @@
 // components/UserProfile.js - Updated for simplified Address entity
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import './UserProfile.css'
 
 const UserProfile = () => {
   const { user, updateUser } = useAuth();
@@ -313,7 +314,7 @@ const UserProfile = () => {
               </div>
             </div>
             
-            <div className="form-check">
+            {/* <div className="form-check">
               <input
                 type="checkbox"
                 name="isDefault"
@@ -322,7 +323,7 @@ const UserProfile = () => {
                 onChange={handleAddressChange}
               />
               <label htmlFor="isDefault">Set as default address</label>
-            </div>
+            </div> */}
             
             <div className="form-buttons">
               <button 

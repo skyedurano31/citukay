@@ -3,6 +3,7 @@ import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
+import './Cart.css'
 
 const Cart = () => {
   const { cart, cartCount, cartTotal, clearCart, loading } = useCart();
