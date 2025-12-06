@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ProductList from '../components/ProductList';
 import CategorySidebar from '../components/CategorySidebar.jsx';
 import { api } from '../services/api';
+import './HomePage.css'
 
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);

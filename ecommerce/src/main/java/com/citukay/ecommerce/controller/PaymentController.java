@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 //@CrossOrigin(origins = "http://localhost:3000")
 @CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/payments")
 public class PaymentController {
     private final PaymentService paymentService;
 
