@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { api } from '../services/api';
+import './ProductList.css'
 
 const ProductList = ({ categoryId, searchQuery }) => {
   const [products, setProducts] = useState([]);

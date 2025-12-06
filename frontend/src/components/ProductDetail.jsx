@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api'; // Use api instead of productService
+import './ProductDetail.css'
 
 const ProductDetail = () => {
   const { id } = useParams();
