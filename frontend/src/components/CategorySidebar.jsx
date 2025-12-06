@@ -1,15 +1,23 @@
-// components/CategorySidebar.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { productService } from '../services/productService';
+import './CategorySidebar.css';
 
-const CategorySidebar = ({ onSelectCategory, selectedCategory, onPriceFilter }) => {
+const CategorySidebar = ({ onSelectCategory, selectedCategory }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+  const scrollContainerRef = useRef(null);
+  const [showScrollLeft, setShowScrollLeft] = useState(false);
+  const [showScrollRight, setShowScrollRight] = useState(false);
 
   useEffect(() => {
     loadCategories();
   }, []);
+
+  useEffect(() => {
+    checkScrollButtons();
+    window.addEventListener('resize', checkScrollButtons);
+    return () => window.removeEventListener('resize', checkScrollButtons);
+  }, [categories]);
 
   const loadCategories = async () => {
     try {
@@ -22,11 +30,34 @@ const CategorySidebar = ({ onSelectCategory, selectedCategory, onPriceFilter }) 
     }
   };
 
-  const handlePriceChange = (min, max) => {
-    setPriceRange({ min, max });
-    if (onPriceFilter) {
-      onPriceFilter(min, max);
+  const checkScrollButtons = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setShowScrollLeft(container.scrollLeft > 0);
+      setShowScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth
+      );
     }
+  };
+
+  const scrollLeft = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: -200, behavior: 'smooth' });
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
+
+  const scrollRight = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: 200, behavior: 'smooth' });
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
+
+  const handleScroll = () => {
+    checkScrollButtons();
   };
 
   if (loading) {
@@ -34,9 +65,20 @@ const CategorySidebar = ({ onSelectCategory, selectedCategory, onPriceFilter }) 
   }
 
   return (
-    <div className="category-sidebar">
-      <div className="sidebar-section">
-        <h3>Categories</h3>
+    <div className="scroll-container">
+      {showScrollLeft && (
+        <button className="scroll-btn left" onClick={scrollLeft}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      )}
+      
+      <div 
+        className="category-sidebar" 
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+      >
         <ul className="category-list">
           <li>
             <button 
@@ -53,24 +95,23 @@ const CategorySidebar = ({ onSelectCategory, selectedCategory, onPriceFilter }) 
                 onClick={() => onSelectCategory(category.id)}
               >
                 {category.name}
-                {/* REMOVED: <span className="category-count">({category.productCount || 0})</span> */}
+                {/* Optional: Add count back if you have it */}
+                {/* {category.productCount > 0 && (
+                  <span className="category-count">{category.productCount}</span>
+                )} */}
               </button>
             </li>
           ))}
         </ul>
       </div>
-      
-      <div className="sidebar-section">
-        <button 
-          className="btn-clear-filters"
-          onClick={() => {
-            onSelectCategory(null);
-            handlePriceChange(0, 1000);
-          }}
-        >
-          Clear All Filters
+
+      {showScrollRight && (
+        <button className="scroll-btn right" onClick={scrollRight}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </button>
-      </div>
+      )}
     </div>
   );
 };

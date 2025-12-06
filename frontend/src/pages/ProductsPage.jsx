@@ -37,9 +37,9 @@ const ProductsPage = () => {
       <div className="page-header">
         <h1>All Products</h1>
         <div className="filters-bar">
-          <SearchBar />
+          {/* <SearchBar /> */}
           
-          <div className="filter-group">
+          {/* <div className="filter-group">
             <label>Sort By:</label>
             <select value={sortOption} onChange={handleSortChange}>
               <option value="featured">Featured</option>
@@ -48,9 +48,9 @@ const ProductsPage = () => {
               <option value="name-asc">Name: A to Z</option>
               <option value="name-desc">Name: Z to A</option>
             </select>
-          </div>
+          </div> */}
           
-          <div className="filter-group">
+          {/* <div className="filter-group">
             <label>Price Range:</label>
             <div className="price-range">
               <input 
@@ -62,7 +62,7 @@ const ProductsPage = () => {
               />
               <span>${priceRange.min} - ${priceRange.max}</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
