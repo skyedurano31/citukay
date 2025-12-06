@@ -15,8 +15,8 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ProductDetail from './components/ProductDetail';
 import ImageDebugPage from './pages/ImageDebugPage';  
-import './App.css';
-// import './sample.css';
+// import './App.css';
+import './sample.css';
 
 const PrivateRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -25,6 +25,7 @@ const PrivateRoute = ({ children }) => {
 
 function App() {
   return (
+    <div id = "root">
     <Router>
       <AuthProvider>
         <CartProvider>
@@ -61,6 +62,7 @@ function App() {
         </CartProvider>
       </AuthProvider>
     </Router>
+    </div>
   );
 }
 
