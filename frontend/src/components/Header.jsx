@@ -1,10 +1,10 @@
-    // components/Header.js
+// components/Header.js (with logo added)
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import SearchBar from './SearchBar';
-import './Header.css'
+import './Header.css';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -20,15 +20,17 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <button 
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          ☰
-        </button>
 
         <div className="logo">
-          <Link to="/">CITUKAY</Link>
+          <Link to="/">
+            {/* Add your logo image here */}
+            <img 
+              src="/images/citlogo.png" // or "/logo.svg" or import from assets
+              alt="CIT-U Logo"
+              className="logo-image"
+            />
+            CITUKAY
+          </Link>
         </div>
 
         <nav className={`nav ${mobileMenuOpen ? 'open' : ''}`}>
