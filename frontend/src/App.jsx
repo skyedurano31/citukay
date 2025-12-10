@@ -15,6 +15,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ProductDetail from './components/ProductDetail';
 import ImageDebugPage from './pages/ImageDebugPage';  
+import ProductForm from './components/ProductForm';
 // import './App.css';
 import './sample.css';
 
@@ -36,6 +37,11 @@ function App() {
                 <Route path="/debug-images" element={<ImageDebugPage />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductsPage />} />
+                <Route path="/products/new" element={ // Add this route
+                  <PrivateRoute>
+                    <ProductForm />
+                  </PrivateRoute>
+                } />
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={

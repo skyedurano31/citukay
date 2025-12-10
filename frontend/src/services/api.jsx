@@ -25,6 +25,25 @@ const transformProductImages = (products) => {
 };
 
 export const api = {
+  async createProduct(productData) {
+    const response = await fetch(`${API_BASE_URL}/products`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(productData)
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.message || `Failed to create product: ${response.status}`);
+    }
+    
+    return transformProductImages(data);
+  },
+  
  async login(email, password) {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: 'POST',
