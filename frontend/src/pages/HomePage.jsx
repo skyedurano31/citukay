@@ -18,6 +18,8 @@ const CATEGORY_IMAGE_MAP = {
   'Automotive': 'cars-parts.jpg',
   'running': 'shoescategory.jpg',
   'basketball': 'shoescategory.jpg',
+  'pautog': 'sample.jpg',
+  'school': 'sample.jpg',
   // Add more as needed
 };
 
@@ -94,8 +96,10 @@ const HomePage = () => {
             <div className="categories-grid">
               {categories.map(category => (
                 <Link 
-                  key={category.id} 
-                  to={`/products?category=${category.id}`}
+                  to={{
+                    pathname: '/products',
+                    state: { selectedCategory: category.id }
+                  }}
                   className="category-card"
                 >
                   <div className="category-image">
@@ -122,8 +126,8 @@ const HomePage = () => {
           
           <div className="promo-banner">
             <div className="promo-content">
-              <h3>Free Shipping on Orders Over $50</h3>
-              <p>No minimum purchase required. Limited time offer.</p>
+              <h3>John James Ukayan</h3>
+              <p>BUGHAAA.</p>
             </div>
           </div>
         </div>
