@@ -29,7 +29,7 @@
 
 /* --- MAIN BUTTON STYLING (The dark brown pill look) --- */
 .category-list button {
-    padding: 0.75rem 1.5rem; /* Slightly increased padding for the "pill" shape */
+    padding: 0.5rem 1.0rem; /* Slightly increased padding for the "pill" shape */
     background: #6D4C41; /* Dark Maroon/Brown color from the image */
     color: white; /* White text */
     font-weight: 500; /* Set default weight */
