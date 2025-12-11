@@ -1,9 +1,11 @@
 /* Product List - Clean & Minimal */
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem 0;
+    display: grid;
+    /* Ensure the minimum column width is enough for the new, taller cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    /* Increase gap slightly for a cleaner, more spacious look */
+    gap: 2rem; 
+    padding: 1rem 0;
 }
 
 .loading {

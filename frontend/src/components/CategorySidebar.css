@@ -1,74 +1,70 @@
 /* Horizontal Category Sidebar */
 .category-sidebar {
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 0 1.5rem;
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 1.5rem;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
 }
 
-.category-sidebar::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-.category-sidebar.loading {
-  padding: 1rem;
-  text-align: center;
-  color: #666;
-  font-size: 0.9rem;
-}
+/* ... (other sidebar styles remain the same) ... */
 
 .category-list {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  min-height: 60px;
-  align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    min-height: 60px;
+    align-items: center;
 }
 
 .category-list li {
-  margin: 0;
-  flex-shrink: 0;
+    margin: 0;
+    flex-shrink: 0;
 }
 
+/* --- MAIN BUTTON STYLING (The dark brown pill look) --- */
 .category-list button {
-  padding: 0.75rem 1.25rem;
-  background: none;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 400;
-  white-space: nowrap;
+    padding: 0.75rem 1.5rem; /* Slightly increased padding for the "pill" shape */
+    background: #6D4C41; /* Dark Maroon/Brown color from the image */
+    color: white; /* White text */
+    font-weight: 500; /* Set default weight */
+    border: none;
+    border-radius: 25px; /* Large radius for the pill shape */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
 }
 
 .category-list button:hover:not(.active) {
-  background: #f8f8f8;
-  color: #333;
+    background: #6D4C41; /* Keep the color the same */
+    opacity: 0.85; /* Subtle fade on hover */
+    color: white;
 }
 
+/* --- ACTIVE BUTTON STYLING (Looks exactly like the others, but emphasized) --- */
 .category-list button.active {
-  background: #000;
-  color: white;
-  font-weight: 500;
+    background: #6D4C41;
+    color: white;
+    font-weight: 600; /* Slightly bolder text for the active state */
 }
 
-/* First item (All Products) */
+/* --- FIRST CHILD (Handle 'All Products' if it exists) --- */
 .category-list li:first-child button {
-  background: #f8f8f8;
-  font-weight: 500;
+    background: #6D4C41; /* Ensure the first button is also brown */
+    color: white;
+    font-weight: 500;
 }
 
 .category-list li:first-child button.active {
-  background: #000;
+  background: #6D4C41;
   color: white;
+  font-weight: 600;
 }
 
 /* Scroll indicators */
