@@ -16,10 +16,14 @@ const CATEGORY_IMAGE_MAP = {
   'Toys': 'toys-games.jpg',
   'Furniture': 'furniture-home.jpg',
   'Automotive': 'cars-parts.jpg',
-  'running': 'shoescategory.jpg',
-  'basketball': 'shoescategory.jpg',
-  'pautog': 'sample.jpg',
-  'school': 'sample.jpg',
+  'books': 'books.jpg',
+  'clothing': 'clothing.jpg',
+  'pen': 'pen.jpg',
+  'calculator': 'calculator.jpg',
+  'ruler': 'ruler.jpg',
+  'shoes': 'shoes.JPG',
+
+  
   // Add more as needed
 };
 
@@ -82,8 +86,9 @@ const HomePage = () => {
     <div className="home-page">
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Welcome to CITU-UKAY</h1>
-          <p>Discover amazing second-hand treasures at great prices</p>
+          <h1>CIT - UKAY, estilo nga barato, kalidad nga lig-on</h1>
+          <h3>Dili tanan ug porma kay dekalidad; usahay naa sa ukay - ukay ang branded.</h3>
+          <h4>Sama ra pud sa tawo, bisan unsa pa ka gwapo o ka-ayos sa panagway kung bati ang batasan, wala gihapoy pulos.</h4>
           <Link to="/products" className="btn-hero">
             Shop Now
           </Link>
@@ -126,8 +131,8 @@ const HomePage = () => {
           
           <div className="promo-banner">
             <div className="promo-content">
-              <h3>John James Ukayan</h3>
-              <p>BUGHAAA.</p>
+              <h3>Ali namo palit na</h3>
+              <p>barato pa, kalidad pa!</p>
             </div>
           </div>
         </div>
