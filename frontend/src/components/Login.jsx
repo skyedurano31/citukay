@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-form">
-        <h2>Login to Your Account</h2>
+        <h2>Welcome to CIT-UKAY!</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>

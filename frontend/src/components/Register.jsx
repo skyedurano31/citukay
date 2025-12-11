@@ -64,7 +64,7 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Register</h2>
+        <h2>Create your new Account!</h2>
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">

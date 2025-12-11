@@ -1,6 +1,6 @@
-// components/Header.js (with logo added)
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// 1. Change Link to NavLink
+import { NavLink, Link, useNavigate } from 'react-router-dom'; 
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import SearchBar from './SearchBar';
@@ -17,15 +17,21 @@ const Header = () => {
     navigate('/');
   };
 
+  // Helper function to close menu and apply active-link class
+  const navLinkClass = ({ isActive }) => {
+    setMobileMenuOpen(false); // Close menu on click (for mobile)
+    return isActive ? 'active-link' : '';
+  };
+
   return (
     <header className="header">
       <div className="header-container">
 
         <div className="logo">
+          {/* Use Link for the logo as it doesn't need 'active' styling */}
           <Link to="/">
-            {/* Add your logo image here */}
             <img 
-              src="/images/citlogo.png" // or "/logo.svg" or import from assets
+              src="/images/citlogo.png" 
               alt="CIT-U Logo"
               className="logo-image"
             />
@@ -34,9 +40,18 @@ const Header = () => {
         </div>
 
         <nav className={`nav ${mobileMenuOpen ? 'open' : ''}`}>
-          <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-          <Link to="/products" onClick={() => setMobileMenuOpen(false)}>Products</Link>
-          {user && <Link to="/orders" onClick={() => setMobileMenuOpen(false)}>Orders</Link>}
+          {/* 2. Use NavLink and the navLinkClass helper function */}
+          <NavLink to="/" className={navLinkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/products" className={navLinkClass}>
+            Products
+          </NavLink>
+          {user && (
+            <NavLink to="/orders" className={navLinkClass}>
+              Orders
+            </NavLink>
+          )}
         </nav>
 
         <div className="header-actions">
